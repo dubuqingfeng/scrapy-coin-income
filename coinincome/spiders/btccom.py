@@ -23,9 +23,10 @@ class BtccomSpider(scrapy.Spider):
         if response_body['err_no'] == 0:
             for coin in response_body['data']:
                 item = CoinincomeItem()
-                item['coin'] = coin
+                item['coin'] = coin.lower()
                 item['income_coin'] = response_body['data'][coin]['income_coin']
                 item['income_hashrate_unit'] = response_body['data'][coin]['income_hashrate_unit']
                 item['next_income_coin'] = response_body['data'][coin]['next_income_coin']
                 item['pool_name'] = self.name
+                item['request_url'] = response.url
                 yield item

@@ -18,9 +18,10 @@ class PoolinSpider(scrapy.Spider):
         if response_body['err_no'] == 0:
             for coin in response_body['data']:
                 item = CoinincomeItem()
-                item['coin'] = coin
+                item['coin'] = coin.lower()
                 item['income_coin'] = response_body['data'][coin]['rewards_per_unit']
                 item['income_hashrate_unit'] = response_body['data'][coin]['reward_unit']
                 item['next_income_coin'] = 0
                 item['pool_name'] = self.name
+                item['request_url'] = response.url
                 yield item
