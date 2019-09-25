@@ -17,8 +17,8 @@ class HuobipoolSpider(scrapy.Spider):
             for coin in response_body['data']:
                 item = CoinincomeItem()
                 item['coin'] = coin['currency'].lower()
-                item['income_coin'] = coin['profit']
-                item['income_hashrate_unit'] = coin['profit']
+                item['income_coin'] = float(coin['profit'].split()[0])
+                item['income_hashrate_unit'] = coin['profit'].split('/')[1]
                 item['next_income_coin'] = 0
                 item['pool_name'] = self.name
                 item['request_url'] = response.url

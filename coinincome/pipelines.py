@@ -28,7 +28,8 @@ class MySQLTwistedPipeline(object):
         return cls(db_pool)
 
     def process_item(self, item, spider):
-        self.db_pool.runInteraction(self.insert_item, item)
+        if self.db_pool is not None:
+            self.db_pool.runInteraction(self.insert_item, item)
 
     def insert_item(self, cursor, item):
         insert_sql = """INSERT INTO pool_coin_incomes(pool_name, coin, income_coin, income_hashrate_unit, updated_at)
@@ -47,8 +48,15 @@ class MySQLTwistedPipeline(object):
             if math.isclose(row['income_coin'], item['income_coin'], rel_tol=1e-6):
                 return
             else:
-                print("diff:coin:%s:prev:%s:now:%s" % (item['coin'].encode('utf-8'), row['income_coin'],
-                                                       item['income_coin']))
+                if row['request_url'] != item['request_url']:
+                    text = "diff:coin:%s:prev:%s:time:%s:url:'%s':now:%s:url:'%s'" % (
+                        item['coin'], row['income_coin'], row['created_at'], row['request_url'], item['income_coin'],
+                        item['request_url'])
+                    print(text)
+                else:
+                    text = "diff:coin:%s:prev:%s:url:'%s':now:%s" % (
+                        item['coin'], row['income_coin'], row['request_url'], item['income_coin'])
+                    print(text)
         insert_history_sql = """INSERT INTO pool_coin_income_history(pool_name, coin, request_url, income_coin, 
         income_hashrate_unit, created_at)  VALUES (%s, %s, %s, %s, %s, now());"""
         cursor.execute(insert_history_sql, (item['pool_name'].encode('utf-8'), item['coin'].encode('utf-8'),
