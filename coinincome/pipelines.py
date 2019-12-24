@@ -61,7 +61,8 @@ class MySQLTwistedPipeline(object):
                         item['coin'], row['income_coin'], row['request_url'], item['income_coin'])
                     print(text)
         insert_history_sql = """INSERT INTO pool_coin_income_history(pool_name, coin, request_url, income_coin, 
-        income_hashrate_unit, created_at)  VALUES (%s, %s, %s, %s, %s, now());"""
+        income_hashrate_unit, income_hashrate_unit_num, created_at)  VALUES (%s, %s, %s, %s, %s, %s, now());"""
         cursor.execute(insert_history_sql, (item['pool_name'].encode('utf-8'), item['coin'].encode('utf-8'),
                                             item['request_url'].encode('utf-8'),
-                                            item['income_coin'], item['income_hashrate_unit'].encode('utf-8'),))
+                                            item['income_coin'], item['income_hashrate_unit'].encode('utf-8'),
+                                            item['income_hashrate_unit_num']))
