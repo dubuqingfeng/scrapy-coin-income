@@ -8,6 +8,7 @@
 #     https://doc.scrapy.org/en/latest/topics/settings.html
 #     https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://doc.scrapy.org/en/latest/topics/spider-middleware.html
+import os
 
 BOT_NAME = 'coinincome'
 
@@ -89,7 +90,7 @@ ITEM_PIPELINES = {
 # HTTPCACHE_IGNORE_HTTP_CODES = []
 # HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
-MYSQL_HOST = "127.0.0.1"
-MYSQL_DBNAME = "pool_coin_income"
-MYSQL_USER = "root"
-MYSQL_PASSWORD = ""
+MYSQL_HOST = os.getenv('MYSQL_HOST', '127.0.0.1')
+MYSQL_DBNAME = os.getenv('MYSQL_DBNAME', 'pool_coin_income')
+MYSQL_USER = os.getenv('MYSQL_USER', 'root')
+MYSQL_PASSWORD = os.getenv('MYSQL_PASSWORD', 'root')

@@ -1,0 +1,12 @@
+# at https://docs.docker.com/compose/compose-file/
+version: '3.3'
+services:
+  scrapy-pool-incomes:
+    container_name: scrapy-pool-income
+    image: dubuqingfeng/scrapy-pool-income
+    restart: always
+    environment:
+      MYSQL_HOST: "production"
+      MYSQL_DBNAME: ""
+      MYSQL_USER: ""
+      MYSQL_PASSWORD: ""
