@@ -12,13 +12,3 @@
 + okpool
 + huobi.pool (已支持)
 + f2pool (已支持)
-
-#### 方案
-
-1. Poolin
-https://api-prod.poolin.com/api/public/v2/basedata/coins/block_stats
-
-### TODO:
-
-1. 写入爬取历史(先 select 然后对比)
-2. 任务调度。状态检查
