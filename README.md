@@ -4,14 +4,14 @@
 
 ### 支持网站
 
-+ btccom
-+ poolin
-+ f2pool
-+ antpool
-+ sparkpool
-+ viabtc
++ btccom (已支持)
++ poolin (已支持)
++ antpool (已支持)
++ sparkpool (已支持)
++ viabtc (已支持)
 + okpool
-+ huobi.pool
++ huobi.pool (已支持)
++ f2pool (已支持)
 
 #### 方案
 
