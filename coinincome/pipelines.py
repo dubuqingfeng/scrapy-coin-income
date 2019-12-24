@@ -32,13 +32,16 @@ class MySQLTwistedPipeline(object):
             self.db_pool.runInteraction(self.insert_item, item)
 
     def insert_item(self, cursor, item):
-        insert_sql = """INSERT INTO pool_coin_incomes(pool_name, coin, income_coin, income_hashrate_unit, updated_at)
-                             VALUES (%s, %s, %s, %s, now()) ON DUPLICATE KEY UPDATE pool_name = %s, coin = %s, 
-                             income_coin = %s, income_hashrate_unit = %s, updated_at = now();"""
+        insert_sql = """INSERT INTO pool_coin_incomes(pool_name, coin, income_coin, income_hashrate_unit, 
+                            income_hashrate_unit_num, updated_at) VALUES 
+                            (%s, %s, %s, %s, %s, now()) ON DUPLICATE KEY UPDATE pool_name = %s, coin = %s, 
+                             income_coin = %s, income_hashrate_unit = %s, income_hashrate_unit_num = %s, 
+                             updated_at = now();"""
         params = (item['pool_name'].encode('utf-8'), item['coin'].encode('utf-8'),
                   item['income_coin'], item['income_hashrate_unit'].encode('utf-8'),
+                  item['income_hashrate_unit_num'],
                   item['pool_name'].encode('utf-8'), item['coin'].encode('utf-8'),
-                  item['income_coin'], item['income_hashrate_unit'].encode('utf-8'))
+                  item['income_coin'], item['income_hashrate_unit'].encode('utf-8'), item['income_hashrate_unit_num'])
         cursor.execute(insert_sql, params)
         sql = "SELECT * FROM pool_coin_income_history WHERE pool_name = %s and coin = %s order by " \
               "created_at desc limit 1;"

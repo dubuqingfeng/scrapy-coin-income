@@ -4,6 +4,7 @@ import json
 import scrapy
 
 from coinincome.items import CoinincomeItem
+from coinincome.utils import calculate_unit
 
 
 class HuobipoolSpider(scrapy.Spider):
@@ -19,6 +20,7 @@ class HuobipoolSpider(scrapy.Spider):
                 item['coin'] = coin['currency'].lower()
                 item['income_coin'] = float(coin['profit'].split()[0])
                 item['income_hashrate_unit'] = coin['profit'].split('/')[1]
+                item['income_hashrate_unit_num'] = calculate_unit(coin['profit'].split('/')[1])
                 item['next_income_coin'] = 0
                 item['pool_name'] = self.name
                 item['request_url'] = response.url

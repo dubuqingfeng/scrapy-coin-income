@@ -7,6 +7,7 @@ import json
 # https://pool.btc.com/v1/coins-income
 # Main
 from coinincome.items import CoinincomeItem
+from coinincome.utils import calculate_unit
 
 
 class BtccomSpider(scrapy.Spider):
@@ -26,6 +27,8 @@ class BtccomSpider(scrapy.Spider):
                 item['coin'] = coin.lower()
                 item['income_coin'] = response_body['data'][coin]['income_coin']
                 item['income_hashrate_unit'] = response_body['data'][coin]['income_hashrate_unit']
+                item['income_hashrate_unit_num'] = calculate_unit(
+                    response_body['data'][coin]['income_hashrate_unit'])
                 item['next_income_coin'] = response_body['data'][coin]['next_income_coin']
                 item['pool_name'] = self.name
                 item['request_url'] = response.url

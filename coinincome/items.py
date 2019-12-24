@@ -15,5 +15,6 @@ class CoinincomeItem(scrapy.Item):
     income_coin = scrapy.Field()
     next_income_coin = scrapy.Field()
     income_hashrate_unit = scrapy.Field()
+    income_hashrate_unit_num = scrapy.Field()
     request_url = scrapy.Field()
     pass

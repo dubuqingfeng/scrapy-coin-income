@@ -6,6 +6,7 @@ import json
 # https://api-prod.poolin.com/api/public/v2/basedata/coins/block_stats
 ###
 from coinincome.items import CoinincomeItem
+from coinincome.utils import calculate_unit
 
 
 class PoolinSpider(scrapy.Spider):
@@ -19,8 +20,9 @@ class PoolinSpider(scrapy.Spider):
             for coin in response_body['data']:
                 item = CoinincomeItem()
                 item['coin'] = coin.lower()
-                item['income_coin'] = response_body['data'][coin]['rewards_per_unit']
+                item['income_coin'] = float(response_body['data'][coin]['rewards_per_unit'])
                 item['income_hashrate_unit'] = response_body['data'][coin]['reward_unit']
+                item['income_hashrate_unit_num'] = calculate_unit(response_body['data'][coin]['reward_unit'])
                 item['next_income_coin'] = 0
                 item['pool_name'] = self.name
                 item['request_url'] = response.url

@@ -19,6 +19,7 @@ class SparkpoolSpider(scrapy.Spider):
                 item['coin'] = coin['currency'].lower()
                 item['income_coin'] = coin['income']
                 item['income_hashrate_unit'] = coin['incomeHashrate']
+                item['income_hashrate_unit_num'] = coin['incomeHashrate']
                 item['next_income_coin'] = 0
                 item['pool_name'] = self.name
                 item['request_url'] = response.url
