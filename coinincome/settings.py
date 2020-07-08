@@ -67,6 +67,7 @@ ROBOTSTXT_OBEY = False
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
     'coinincome.pipelines.MySQLTwistedPipeline': 300,
+    'crawlab.pipelines.CrawlabMongoPipeline': 888,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
